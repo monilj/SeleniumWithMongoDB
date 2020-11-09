@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.bson.Document;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -46,9 +47,15 @@ public class WebScrapTest {
         driver.get(appUrl);
         String url = driver.getCurrentUrl();
         String title = driver.getTitle();
+
+        int linksCount = driver.findElements(By.tagName("a")).size();
+        int imagesCount = driver.findElements(By.tagName("img")).size();
+
         Document document = new Document();
         document.append("URL", url);
         document.append("Title", title);
+        document.append("totalLinks",linksCount);
+        document.append("totalImages",imagesCount);
         List<Document> docsList = new ArrayList<Document>();
         docsList.add(document);
         webCollection.insertMany(docsList);
