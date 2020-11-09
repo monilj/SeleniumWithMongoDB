@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -53,11 +54,19 @@ public class WebScrapTest {
         int linksCount = driver.findElements(By.tagName("a")).size();
         int imagesCount = driver.findElements(By.tagName("img")).size();
 
+        List<WebElement> linksList = driver.findElements(By.tagName("a"));
+        List<String> linksAttributeList = new ArrayList<String>();
         Document document = new Document();
         document.append("URL", url);
         document.append("Title", title);
         document.append("totalLinks",linksCount);
         document.append("totalImages",imagesCount);
+        for (WebElement ele : linksList){
+            String hrefValue = ele.getAttribute("href");
+            linksAttributeList.add(hrefValue);
+
+        }
+        document.append("linkAttriubte",linksAttributeList);
         List<Document> docsList = new ArrayList<Document>();
         docsList.add(document);
         webCollection.insertMany(docsList);
