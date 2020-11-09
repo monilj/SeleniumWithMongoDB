@@ -56,6 +56,10 @@ public class WebScrapTest {
 
         List<WebElement> linksList = driver.findElements(By.tagName("a"));
         List<String> linksAttributeList = new ArrayList<String>();
+
+        List<WebElement> imagesList = driver.findElements(By.tagName("img"));
+        List<String> imageAttributeList = new ArrayList<String>();
+
         Document document = new Document();
         document.append("URL", url);
         document.append("Title", title);
@@ -64,9 +68,16 @@ public class WebScrapTest {
         for (WebElement ele : linksList){
             String hrefValue = ele.getAttribute("href");
             linksAttributeList.add(hrefValue);
-
         }
+
+        for (WebElement imgEle : imagesList){
+            String srcValue = imgEle.getAttribute("src");
+            imageAttributeList.add(srcValue);
+        }
+
         document.append("linkAttriubte",linksAttributeList);
+            document.append("imageAttriubte",imageAttributeList);
+
         List<Document> docsList = new ArrayList<Document>();
         docsList.add(document);
         webCollection.insertMany(docsList);
