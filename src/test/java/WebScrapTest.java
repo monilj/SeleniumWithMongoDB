@@ -33,11 +33,17 @@ public class WebScrapTest {
         driver = new ChromeDriver(chromeOptions);
     }
 
+    @DataProvider
+    public Object[][] getWebData(){
+        return new Object[][]{
+                {"https://www.amazon.com/"},
+                {"https://www.walmart.com/"}
+        };
+    }
 
-
-    @Test
-    public void webScrapTest() {
-        driver.get("https//:www.amazon.com");
+    @Test(dataProvider = "getWebData")
+    public void webScrapTest(String appUrl) {
+        driver.get(appUrl);
         String url = driver.getCurrentUrl();
         String title = driver.getTitle();
         Document document = new Document();
