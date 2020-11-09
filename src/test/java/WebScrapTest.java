@@ -38,7 +38,7 @@ public class WebScrapTest {
     public Object[][] getWebData(){
         return new Object[][]{
                 {"https://www.amazon.com/"},
-                {"https://www.walmart.com/"}
+                {"https://www.flipkart.com/"}
         };
     }
 
